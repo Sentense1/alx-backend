@@ -7,6 +7,19 @@ import math
 from typing import List, Tuple
 
 
+def index_range(page: int, page_size: int) -> Tuple[int, int]:
+    """
+    Index range static method
+    """
+    start = (page - 1) * page_size
+
+    end = page * page_size
+
+    range_tuple = (start, end)
+
+    return range_tuple
+
+
 class Server:
     """Server class to paginate a database of popular baby names.
     """
@@ -26,19 +39,6 @@ class Server:
 
         return self.__dataset
 
-    @staticmethod
-    def index_range(page: int, page_size: int) -> Tuple(int, int):
-        """
-        Static method index range for getting indexes.
-        """
-        start = (page - 1) * page_size
-
-        end = page * page_size
-
-        range_tuple = (start, end)
-
-        return range_tuple
-
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """
         Get page method for return the desired number of pages.
@@ -47,13 +47,12 @@ class Server:
         assert isinstance(page, int) and page > 0
         dataset_len = len(self.dataset())
 
-        start, end = self.index_range(page, page_size)
+        start, end = index_range(page, page_size)
 
         if start >= dataset_len:
             return []
 
         return self.dataset()[start:end]
-
 
 
 if __name__ == "__main__":
@@ -74,8 +73,6 @@ if __name__ == "__main__":
     except AssertionError:
         print("AssertionError raised when page and/or page_size are not ints")
 
-
     print(server.get_page(1, 3))
     print(server.get_page(3, 2))
     print(server.get_page(3000, 100))
-
