@@ -44,35 +44,15 @@ class Server:
         Get hyper method
         """
         # Ensure that page_size and index are valid integers
-        assert isinstance(page_size, int) and page_size > 0
-        assert index is None or (isinstance(index, int) and index >= 0)
-        assert index < len(self.indexed_dataset())
-
-        # Get the total number of rows in the dataset
-        dataset_length = len(self.indexed_dataset())
-
-        # Determine the current index (start index of the return page)
-        current_index = 0 if index is None else index
-
-        # Calculate the next index based on the page_size
-        next_index = current_index + page_size
-
-        # If there're deleted rows btwn d current & next index, adjust nxt_ind
-        truncated_dataset = self.indexed_dataset()
-
-        for i in range(current_index, next_index):
-            if i >= len(truncated_dataset):
-                break  # No more data to consider
-            if truncated_dataset.get(i) is None:
+        assert type(index) == int and type(page_size) == int
+        assert 0 <= index < len(self.indexed_dataset()) or index is None
+        data = []
+        next_index = index + page_size
+        for i in range(index, next_index):
+            if not self.indexed_dataset().get(i):
+                i += 1
                 next_index += 1
-
-        # Ensure that the next index is within a valid range
-        if next_index >= dataset_length:
-            next_index = dataset_length
-
-        # Retrieve the data for the current page
-        indexed_data = self.indexed_dataset().values()
-        data = list(indexed_data)[current_index:next_index]
+            data.append(self.indexed_dataset()[i])
 
         hyper_data = {
             'index': index,
