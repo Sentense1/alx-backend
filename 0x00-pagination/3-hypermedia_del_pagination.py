@@ -66,15 +66,6 @@ class Server:
             if truncated_dataset.get(i) is None:
                 next_index += 1
 
-        # Ensure that the current index is within a valid range
-        #if current_index >= dataset_length:
-        #    return {
-        #            "index": 0,
-        #            "next_index": None,
-        #            "page_size": page_size,
-        #            "data": []
-        #    }
-
         # Ensure that the next index is within a valid range
         if next_index >= dataset_length:
             next_index = dataset_length
@@ -85,9 +76,9 @@ class Server:
 
         hyper_data = {
             'index': index,
-            'next_index': next_index,
+            'data': data,
             'page_size': page_size,
-            'data': data
+            'next_index': next_index
         }
 
         return hyper_data
