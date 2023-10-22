@@ -94,7 +94,6 @@ if __name__ == "__main__":
     except AssertionError:
         print("AssertionError raised when out of range")
 
-
     index = 3
     page_size = 2
 
@@ -111,7 +110,7 @@ if __name__ == "__main__":
     del server._Server__indexed_dataset[res.get('index')]
     print("Nb items: {}".format(len(server._Server__indexed_dataset)))
 
-    # 4- request again the initial index -> the first 
+    # 4- request again the initial index -> the first
     #   data retreives is not the same as the first request
     print(server.get_hyper_index(index, page_size))
 
