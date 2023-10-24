@@ -23,7 +23,11 @@ class BasicCache(BaseCaching):
             self.cache_data[key] = item
 
     def get(self, key: Any) -> Optional[Any]:
-        return self.cache_data.get(key)
+        """
+        Get method for retrieving the cache
+        """
+        if key is not None:
+            return self.cache_data.get(key)
 
 
 if __name__ == "__main__":
