@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ BaseCaching module
 """
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 from base_caching import BaseCaching
 
 
@@ -15,13 +15,14 @@ class BasicCache(BaseCaching):
         """
         super().__init__()
 
-    def put(self, key: str, item: Any) -> None:
+    def put(self, key: Any, item: Any) -> None:
         """
         Put method for adding a data to the cache
         """
-        self.cache_data.get(key) = item
+        if key is not None and item is not None:
+            self.cache_data[key] = item
 
-    def get(self, key: str) -> Optional[Any]:
+    def get(self, key: Any) -> Optional[Any]:
         return self.cache_data.get(key)
 
 
