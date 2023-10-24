@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """ BaseCaching module
 """
 from typing import Dict, Any, Optional
