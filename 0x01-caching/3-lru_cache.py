@@ -1,6 +1,7 @@
-#!/usr/bin/python3""" LRU Caching """
-
+#!/usr/bin/python3
+""" LRU Caching """
 from base_caching import BaseCaching
+from typing import Dict, Optional, Any
 
 
 class LRUCache(BaseCaching):
@@ -11,7 +12,7 @@ class LRUCache(BaseCaching):
         super().__init__()
         self.queue = []
 
-    def put(self, key, item):
+    def put(self, key: Any, item: Any) -> None:
         """ Puts item in cache """
         if key is None or item is None:
             return
@@ -28,16 +29,16 @@ class LRUCache(BaseCaching):
         if key not in self.queue:
             self.queue.append(key)
         else:
-            self.mv_last_list(key)
+            self.refactor_queue(key)
 
-    def get(self, key):
+    def get(self, key: Any) -> Optional[Dict]:
         """ Gets item from cache """
-        item = self.cache_data.get(key, None)
+        item = self.cache_data.get(key)
         if item is not None:
-            self.mv_last_list(key)
+            self.refactor_queue(key)
         return item
 
-    def mv_last_list(self, item):
+    def refactor_queue(self, item: Any) -> None:
         """ Moves element to last idx of list """
         length = len(self.queue)
         if self.queue[length - 1] != item:
@@ -45,7 +46,7 @@ class LRUCache(BaseCaching):
             self.queue.append(item)
 
     @staticmethod
-    def get_first_list(array):
+    def get_first_list(array: list[Any]) -> Optional[Any]:
         """ Get first element of list or None """
         return array[0] if array else None
 
