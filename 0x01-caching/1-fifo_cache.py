@@ -20,9 +20,9 @@ class FIFOCache(BaseCaching):
         Put method for adding a data to the cache
         """
         if key is not None and item is not None:
-            if len(self.cache_data) > BaseCaching.MAX_ITEMS:
-                cache_list = list(self.cache_data.keys())
-                first_key = cache_list[0]
+            if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
+                cache_data = list(self.cache_data.keys())
+                first_key = cache_data[0]
                 self.cache_data.pop(first_key)
                 print("DISCARD: {}".format(first_key))
                 del first_key
