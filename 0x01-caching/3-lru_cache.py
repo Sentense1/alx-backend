@@ -46,8 +46,10 @@ class LRUCache(BaseCaching):
             self.queue.append(item)
 
     @staticmethod
-    def get_first_list(array: list[Any]) -> Optional[Any]:
-        """ Get first element of list or None """
+    def get_first_list(array: Any) -> Optional[Any]:
+        """
+        Get first element of list or None if the list is empty
+        """
         return array[0] if array else None
 
 
