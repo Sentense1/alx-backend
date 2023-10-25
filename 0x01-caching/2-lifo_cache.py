@@ -15,25 +15,42 @@ class LIFOCache(BaseCaching):
         Initialize the class, and call the init of parent class
         """
         super().__init__()
+        self.queue = []
 
     def put(self, key: Any, item: Any) -> None:
         """
         Adds a key-value pair to cache.
         """
-        if key is not None and item is not None:
-            if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-                cache_data = list(self.cache_data.keys())
-                last_key = cache_data[-1]
-                self.cache_data.pop(last_key)
-                print("DISCARD: {}".format(last_key))
-                del last_key
+        if key is None or item is None:
+            return
+
         self.cache_data[key] = item
+
+        if len(self.cache_data) > BaseCaching.MAX_ITEMS:
+            if self.queue:
+                last = self.queue.pop()
+                del self.cache_data[last]
+                print("DISCARD: {}".format(last))
+
+        if key not in self.queue:
+            self.queue.append(key)
+        else:
+            self.rearrange_list(key)
 
     def get(self, key: Any) -> Optional[Dict]:
         """
         Retrieves a key from the cache
         """
         return self.cache_data.get(key)
+
+    def rearranget_list(self, item: Any) -> None:
+        """
+        move an item to the last index of the self.queue list.
+        """
+        length = len(self.queue)
+        if self.queue[length - 1] != item:
+            self.queue.remove(item)
+            self.queue.append(item)
 
 
 if __name__ == "__main__":
