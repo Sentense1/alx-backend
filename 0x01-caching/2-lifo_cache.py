@@ -43,12 +43,11 @@ class LIFOCache(BaseCaching):
         """
         return self.cache_data.get(key)
 
-    def rearranget_list(self, item: Any) -> None:
+    def rearrange_list(self, item: Any) -> None:
         """
         move an item to the last index of the self.queue list.
         """
-        length = len(self.queue)
-        if self.queue[length - 1] != item:
+        if self.queue[-1] != item:
             self.queue.remove(item)
             self.queue.append(item)
 
