@@ -28,21 +28,18 @@ class MRUCache(BaseCaching):
         if key not in self.queue:
             self.queue.append(key)
         else:
-            self.refactor_queue(key)
+            if self.queue[-1] != key:
+                self.queue.remove(key)
+                self.queue.append(key)
 
     def get(self, key: Any) -> Optional[Dict]:
         """ Gets item from cache """
-        item = self.cache_data.get(key, None)
+        item = self.cache_data.get(key)
         if item is not None:
-            self.refactor_queue(key)
+            if self.queue[-1] != key:
+                self.queue.remove(key)
+                self.queue.append(key)
         return item
-
-    def refactor_queue(self, item: Any) -> None:
-        """ Moves element to last idx of list """
-        length = len(self.queue)
-        if self.queue[length - 1] != item:
-            self.queue.remove(item)
-            self.queue.append(item)
 
 
 if __name__ == "__main__":
