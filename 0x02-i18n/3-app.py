@@ -46,7 +46,7 @@ def index():
     home_title = "Welcome to Holberton"
     home_header = "Hello world"
 
-    return render_template('2-index.html', home_title=home_title,
+    return render_template('3-index.html', home_title=home_title,
                            home_header=home_header)
 
 
