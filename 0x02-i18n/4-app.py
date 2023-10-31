@@ -36,7 +36,7 @@ def index() -> str:
     """
     Route for the index page
     """
-    return render_template('3-index.html')
+    return render_template('4-index.html')
 
 
 # define a function that selects the appropriate locale (language)
