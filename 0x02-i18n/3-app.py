@@ -3,7 +3,7 @@
 Flask app module
 """
 from flask import Flask, render_template, request
-from flask_babel import Babel, _
+from flask_babel import Babel
 
 
 # Define a config class
@@ -35,7 +35,7 @@ def get_locale():
     """
     Returns the best match for support languages
     """
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
+    return request.accept_languages.best_match(app.config.LANGUAGES)
 
 
 @app.route('/')
