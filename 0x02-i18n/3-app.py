@@ -43,11 +43,7 @@ def index():
     """
     Route for the index page
     """
-    home_title = "Welcome to Holberton"
-    home_header = "Hello world"
-
-    return render_template('3-index.html', home_title=home_title,
-                           home_header=home_header)
+    return render_template('3-index.html')
 
 
 if __name__ == "__main__":
