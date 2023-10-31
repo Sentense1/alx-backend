@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """ Flask application module """
 from flask import Flask, render_template, request, g
-from flask_babel import Babel, format_datetime
+from flask_babel import Babel
 from typing import Dict, Optional
-from pytz import exceptions as pytz_exceptions, timezone
 
 
 class Config(object):
@@ -26,7 +25,7 @@ users = {
 
 
 @babel.localeselector
-def get_locale() -> str:
+def get_locale():
     """ Gets client's locale/region
         Checks if locale has been passed in the url
         parameters and user locale preferences
@@ -46,29 +45,6 @@ def get_locale() -> str:
 
     # user logged in but language preference not supported
     return request.accept_languages.best_match(Config.LANGUAGES)
-
-
-@babel.timezoneselector
-def get_timezone() -> Optional[str]:
-    """ Check for client's timezone based on
-        url parameters and client's preferences
-    """
-    # Get timezone from URL query parameters.
-    tz = request.args.get("timezone", '')
-
-    # Get timezone from logged in user if timezone
-    # is not in URL parameters.
-    if not tz and g.user:
-        tz = str(g.user.get('timezone', ''))
-
-    # Check if timezone is valid and return
-    # appropriate timezone
-    try:
-        tz = timezone(tz).zone
-        print(tz)
-        return tz
-    except pytz_exceptions.UnknownTimeZoneError as e:
-        return app.config['BABEL_DEFAULT_TIMEZONE']
 
 
 def get_user() -> Optional[Dict]:
@@ -92,9 +68,8 @@ def before_request() -> None:
 @app.route("/")
 def home():
     """ Home route """
-    g.time = format_datetime()
-    return render_template("index.html")
+    return render_template("6-index.html")
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5000)
