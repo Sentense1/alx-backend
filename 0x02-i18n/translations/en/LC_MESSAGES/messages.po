@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-10-31 11:06+0000\n"
-"PO-Revision-Date: 2023-10-31 11:07+0000\n"
+"POT-Creation-Date: 2023-10-31 12:00+0000\n"
+"PO-Revision-Date: 2023-10-31 12:03+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
 "Language-Team: en <LL@li.org>\n"
@@ -18,13 +18,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.13.1\n"
 
-#: 2-app.py:46
-msgid "Welcome to Holberton"
+#: templates/3-index.html:7
+msgid "home_title"
 msgstr "Welcome to Holberton"
 
-#: 2-app.py:47
-msgid "Hello world"
-msgstr "Hello world"
+#: templates/3-index.html:10
+msgid "home_header"
+msgstr "Hello world!"
 
 #: myvenv/lib/python3.7/site-packages/click/_termui_impl.py:518
 msgid "{editor}: Editing failed"
@@ -285,4 +285,12 @@ msgid "{len_type} values are required, but {len_value} was given."
 msgid_plural "{len_type} values are required, but {len_value} were given."
 msgstr[0] ""
 msgstr[1] ""
+
+#: templates/3-index.html:7
+msgid "home_title"
+msgstr ""
+
+#: templates/3-index.html:10
+msgid "home_header"
+msgstr ""
 
