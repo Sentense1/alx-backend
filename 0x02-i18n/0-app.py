@@ -14,10 +14,11 @@ def index():
     """
     Route for the index page.
     """
-    title = "Welcome to Holberton"
-    header = "Hello world"
+    home_title = "Welcome to Holberton"
+    home_header = "Hello world"
 
-    return render_template('0-index.html', title=title, header=header)
+    return render_template('0-index.html', home_title=home_title,
+                           home_header=home_header)
 
 
 if __name__ == "__main__":
