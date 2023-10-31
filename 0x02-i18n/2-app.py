@@ -3,7 +3,7 @@
 Flask app module
 """
 from flask import Flask, render_template, request
-from flask_babel import Babel, _
+from flask_babel import Babel
 
 
 # Define a config class
@@ -43,10 +43,7 @@ def index():
     """
     Route for the index page
     """
-    title = _("Welcome to Holberton")
-    header = _("Hello world")
-
-    return render_template('2-index.html', title=title, header=header)
+    return render_template('2-index.html')
 
 
 if __name__ == "__main__":
