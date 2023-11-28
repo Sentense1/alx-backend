@@ -12,11 +12,11 @@ client.on('error', (error) => {
   console.error(`Redis client not connected to the server: ${error.message}`);
 });
 
-module.exports = function setNewSchool(schoolName, value) {
+function setNewSchool(schoolName, value) {
   client.set(schoolName, value, redis.print);
 }
 
-module.exports = function displaySchoolValue(schoolName) {
+function displaySchoolValue(schoolName) {
   client.get(schoolName, (error, response) => {
     if (error) {
       throw new Error(error);
