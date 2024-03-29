@@ -30,7 +30,7 @@ def get_locale():
         Checks if locale has been passed in the url
         parameters and user locale preferences
     """
-    locale = request.args.get("locale", "")
+    locale = request.args.get("locale")
     if locale in app.config["LANGUAGES"]:
         return locale
 
@@ -38,7 +38,7 @@ def get_locale():
     if not g.user:
         return request.accept_languages.best_match(Config.LANGUAGES)
 
-    locale = g.user.get('locale', '')
+    locale = g.user.get('locale')
     # user logged in and language preference is supported
     if locale in app.config["LANGUAGES"]:
         return locale
@@ -47,7 +47,7 @@ def get_locale():
     return request.accept_languages.best_match(Config.LANGUAGES)
 
 
-def get_user() -> Optional[Dict]:
+def get_user() -> Optional[dict]:
     """ Search for user in user database based
         on request id
     """
@@ -73,7 +73,9 @@ def before_request() -> None:
 
 @app.route("/")
 def home():
-    """ Home route """
+    """
+    Renders Home Page with Username
+    """
     if g.user:
         username = g.user.get('name')
     else:
