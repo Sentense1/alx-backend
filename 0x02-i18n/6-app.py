@@ -2,7 +2,7 @@
 """ Flask application module """
 from flask import Flask, render_template, request, g
 from flask_babel import Babel
-from typing import Dict, Optional
+from typing import Optional
 
 
 class Config(object):
@@ -51,10 +51,16 @@ def get_user() -> Optional[Dict]:
     """ Search for user in user database based
         on request id
     """
-    user_id = request.args.get('login_as')
-    if user_id:
-        return users.get(int(user_id), None)
-    return None
+    user_id: str = request.args.get('login_as')
+    if not user_id:
+        return
+    try:
+        user = users.get(int(user_id))
+        if request.args.get('locale'):
+            user['locale'] = request.args.get('locale')
+        return user
+    except Exception:
+        return
 
 
 @app.before_request
@@ -68,7 +74,11 @@ def before_request() -> None:
 @app.route("/")
 def home():
     """ Home route """
-    return render_template("6-index.html")
+    if g.user:
+        username = g.user.get('name')
+    else:
+        username = None
+    return render_template("6-index.html", username=username)
 
 
 if __name__ == "__main__":
