@@ -2,10 +2,9 @@
 '''
     Use Babel to get user locale.
 '''
-
 from flask_babel import Babel
 from flask import Flask, render_template, request, g
-from typing import Union
+from typing import Optional
 
 app = Flask(__name__, template_folder='templates')
 babel = Babel(app)
@@ -30,15 +29,18 @@ users = {
 }
 
 
-def get_user() -> Union[dict, None]:
+def get_user() -> Optional[dict]:
     '''
         Get user from session as per variable.
     '''
+    user_id = request.args.get('login_as')
+    if not user_id:
+        return
     try:
-        login_as = request.args.get('login_as', None)
-        user = users[int(login_as)]
+        user = users.get(int(user_id))
+        return user
     except Exception:
-        user = None
+        return
 
 
 @app.before_request
@@ -46,16 +48,19 @@ def before_request():
     '''
         Operations before request.
     '''
-    user = get_user()
-    g.user = user
+    g.user = get_user()
 
 
-@app.route('/', methods=['GET'], strict_slashes=False)
+@app.route('/', strict_slashes=False)
 def helloWorld() -> str:
     '''
         Render template for Babel usage.
     '''
-    return render_template('5-index.html')
+    if g.user:
+        username = g.user.get('name')
+    else:
+        username = None
+    return render_template('5-index.html', username=username)
 
 
 @babel.localeselector
@@ -63,9 +68,9 @@ def get_locale() -> str:
     '''
         Get user locale to serve matching translation.
     '''
-    locale = request.args.get('locale')
-    if locale in app.config['LANGUAGES']:
-        return locale
+    user = g.user
+    if user and 'locale' in user and user['locale'] in app.config['LANGUAGES']:
+        return user['locale']
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
