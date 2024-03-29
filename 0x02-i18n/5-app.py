@@ -38,6 +38,8 @@ def get_user() -> Optional[dict]:
         return
     try:
         user = users.get(int(user_id))
+        if request.args.get('locale'):
+            user['locale'] = request.args.get('locale')
         return user
     except Exception:
         return
